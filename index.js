@@ -49,30 +49,7 @@ async function run() {
       const result = await productsCollection.insertOne(data);
       res.send(result);
     });
-    app.get("/user/:user_email", async (req, res) => {
-      const email = req.params.user_email;
-      const result = await productsCollection
-        .find({ user_email: email })
-        .toArray();
-      res.send(result);
-    });
-    app.put("/products/:id", async (req, res) => {
-      const id = req.params.id;
-      const filter = { _id: new ObjectId(id) };
-      const options = { upset: true };
-      const updateProduct = req.body;
-      const product = {
-        $set: {
-          category: updateProduct.category,
-          rating: updateProduct.rating,
-          price: updateProduct.price,
-          time: updateProduct.time,
-          photo: updateProduct.photo,
-          subcategory: updateProduct.subcategory,
-          stockStatus: updateProduct.stockStatus,
-          customization: updateProduct.customization,
-        },
-      };
+
       const result = await productsCollection.updateOne(
         filter,
         product,
